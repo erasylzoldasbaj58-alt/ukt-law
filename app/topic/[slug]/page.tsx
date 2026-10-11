@@ -24,7 +24,9 @@ const topics: Record<string, { title: string; text: string }> = {
     text: "Қылмыс пен жаза түрлерін анықтайды. Теория мен тестер кейін қосылады.",
   },
 };
-
+export function generateStaticParams() {
+  return Object.keys(topics).map((slug) => ({ slug }));
+}
 export default async function TopicPage({
   params,
 }: {
