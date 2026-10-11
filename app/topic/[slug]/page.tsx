@@ -1,9 +1,23 @@
-const topics: Record<string, { title: string; text: string }> = {
+const topics: Record<
+  string,
+  { title: string; text: string; link?: string; linkText?: string; checked?: string }
+> = {
   konstitutsia: {
     title: "Конституциялық құқық",
-    text: "Конституциялық құқық мемлекет пен азамат құқықтарының негізін анықтайды. Бұл бөлімнің теориясы мен тестері кейін қосылады.",
+    text: "Қазақстан Республикасының Конституциясы 2026 жылы 15 наурызда республикалық референдумда қабылданып, 2026 жылы 1 шілдеден бастап күшіне енді. 1995 жылғы Конституция күшін жойды. Конституция мемлекеттің негізгі заңы, оның жоғары заңдық күші бар және ол Қазақстанның бүкіл аумағында тікелей қолданылады.",
+    link: "https://www.gov.kz/memleket/entities/ksrk/press/news/details/1159830?lang=kk",
+    linkText: "Конституцияның ресми мәтіні (gov.kz)",
+    checked: "2026 жылғы 11 қазан",
   },
-    enbek: {
+  azamattyk: {
+    title: "Азаматтық құқық",
+    text: "Меншік, шарттар және мұрагерлік мәселелерін реттейді. Теория мен тестер кейін қосылады.",
+  },
+  kylmystyk: {
+    title: "Қылмыстық құқық",
+    text: "Қылмыс пен жаза түрлерін анықтайды. Теория мен тестер кейін қосылады.",
+  },
+  enbek: {
     title: "Еңбек құқығы",
     text: "Жұмыс беруші мен қызметкер арасындағы қатынасты реттейді. Теория мен тестер кейін қосылады.",
   },
@@ -15,18 +29,12 @@ const topics: Record<string, { title: string; text: string }> = {
     title: "Халықаралық құқық",
     text: "Мемлекеттер арасындағы қатынасты реттейді. Теория мен тестер кейін қосылады.",
   },
-  azamattyk: {
-    title: "Азаматтық құқық",
-    text: "Меншік, шарттар және мұрагерлік мәселелерін реттейді. Теория мен тестер кейін қосылады.",
-  },
-  kylmystyk: {
-    title: "Қылмыстық құқық",
-    text: "Қылмыс пен жаза түрлерін анықтайды. Теория мен тестер кейін қосылады.",
-  },
 };
+
 export function generateStaticParams() {
   return Object.keys(topics).map((slug) => ({ slug }));
 }
+
 export default async function TopicPage({
   params,
 }: {
@@ -50,6 +58,23 @@ export default async function TopicPage({
         <a href="/" className="text-blue-700">← Басты бет</a>
         <h1 className="mt-4 text-3xl font-bold text-blue-900">{topic.title}</h1>
         <p className="mt-4 text-gray-700">{topic.text}</p>
+
+        {topic.link && (
+          <a
+            href={topic.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-6 inline-block rounded-xl bg-blue-900 px-5 py-3 text-white"
+          >
+            {topic.linkText}
+          </a>
+        )}
+
+        {topic.checked && (
+          <p className="mt-4 text-sm text-gray-500">
+            Соңғы тексерілген күні: {topic.checked}
+          </p>
+        )}
       </div>
     </main>
   );
